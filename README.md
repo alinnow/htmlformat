@@ -15,7 +15,7 @@ It does not aim to:
 To use the CLI, you can install with Go > 1.20.
 
 ```
-go install github.com/a-h/htmlformat/cmd/htmlformat@latest
+go install alin.ovh/htmlformat/cmd/htmlformat@latest
 ```
 
 ## Usage

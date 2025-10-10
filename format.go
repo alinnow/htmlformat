@@ -1,4 +1,4 @@
-package htmlformat
+package htmlformat // import alin.ovh/htmlformat
 
 import (
 	"bufio"

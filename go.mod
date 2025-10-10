@@ -1,4 +1,4 @@
-module github.com/alanpearce/htmlformat
+module alin.ovh/htmlformat
 
 go 1.20
 

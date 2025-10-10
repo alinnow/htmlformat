@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/alanpearce/htmlformat"
+	"alin.ovh/htmlformat"
 )
 
 var parseDocumentFlag = flag.Bool("document", false, "Set to true to parse a whole document")
