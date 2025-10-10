@@ -120,3 +120,33 @@ body {
 		})
 	}
 }
+
+func TestFormatDocument(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "HTML5 doctype is preserved",
+			input:    "<!doctype html><html><head></head><body></body></html>",
+			expected: "<!doctype html>\n<html>\n <head>\n </head> <body>\n </body>\n</html>\n",
+		},
+	}
+
+	for _, test := range tests {
+		test := test
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			r := strings.NewReader(test.input)
+			w := new(strings.Builder)
+			if err := Document(w, r); err != nil {
+				t.Fatalf("failed to format: %v", err)
+			}
+			if diff := cmp.Diff(test.expected, w.String()); diff != "" {
+				t.Error(diff)
+			}
+		})
+	}
+}
