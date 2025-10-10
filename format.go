@@ -80,10 +80,6 @@ func isSpecialContentElement(n *html.Node) bool {
 	return false
 }
 
-func isEmptyTextNode(n *html.Node) bool {
-	return n.Type == html.TextNode && strings.TrimSpace(n.Data) == ""
-}
-
 func collapseWhitespace(in string) string {
 	if in == "" {
 		return ""
