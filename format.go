@@ -208,7 +208,7 @@ func printNode(w io.Writer, n *html.Node, pre bool, level int) (err error) {
 			}
 
 			if n.NextSibling == nil ||
-				(n.NextSibling.Type == html.ElementNode && !isInlineElement(n.NextSibling)) ||
+				(n.NextSibling.Type == html.ElementNode) ||
 				(n.NextSibling.Type == html.TextNode && !unicode.IsPunct(getFirstRune(n.NextSibling.Data))) {
 				if _, err = fmt.Fprint(w, "\n"); err != nil {
 					return
