@@ -24,8 +24,8 @@ func TestFormat(t *testing.T) {
 			name:  "html attribute escaping is normalized",
 			input: `<ol> <li style="&amp;&#38;"> A </li> <li> B </li> </ol> `,
 			expected: `<ol>
- <li style="&amp;&amp;">A</li>
- <li>B</li>
+  <li style="&amp;&amp;">A</li>
+  <li>B</li>
 </ol>
 `,
 		},
@@ -33,8 +33,8 @@ func TestFormat(t *testing.T) {
 			name:  "bare ampersands are escaped",
 			input: `<ol> <li style="&"> A </li> <li> B </li> </ol> `,
 			expected: `<ol>
- <li style="&amp;">A</li>
- <li>B</li>
+  <li style="&amp;">A</li>
+  <li>B</li>
 </ol>
 `,
 		},
@@ -42,8 +42,8 @@ func TestFormat(t *testing.T) {
 			name:  "html elements are indented",
 			input: `<ol> <li class="name"> A </li> <li> B </li> </ol> `,
 			expected: `<ol>
- <li class="name">A</li>
- <li>B</li>
+  <li class="name">A</li>
+  <li>B</li>
 </ol>
 `,
 		},
@@ -65,9 +65,9 @@ func TestFormat(t *testing.T) {
 			name:  "phrasing content element children are kept on the same line, including punctuation",
 			input: `<ul><li><a href="http://example.com">Test</a>.</li></ul>`,
 			expected: `<ul>
- <li>
-  <a href="http://example.com">Test</a>.
- </li>
+  <li>
+    <a href="http://example.com">Test</a>.
+  </li>
 </ul>
 `,
 		},
@@ -89,8 +89,8 @@ body {
 			name:  "space after text node with punctuation is preserved",
 			input: `<p><a href="https://example.com">Link</a>. <a href="https://example.org">Another</a></p>`,
 			expected: `<p>
- <a href="https://example.com">Link</a>.
- <a href="https://example.org">Another</a>
+  <a href="https://example.com">Link</a>.
+  <a href="https://example.org">Another</a>
 </p>
 `,
 		},
@@ -98,7 +98,7 @@ body {
 			name:  "spaces are not added around elements ending with punctuation",
 			input: "<div><time>19:00</time>–<time>20:00</time></div>",
 			expected: `<div>
- <time>19:00</time>–<time>20:00</time>
+  <time>19:00</time>–<time>20:00</time>
 </div>
 `,
 		},
@@ -130,7 +130,7 @@ func TestFormatDocument(t *testing.T) {
 		{
 			name:     "HTML5 doctype is preserved",
 			input:    "<!doctype html><html><head></head><body></body></html>",
-			expected: "<!doctype html>\n<html>\n <head>\n </head> <body>\n </body>\n</html>\n",
+			expected: "<!doctype html>\n<html>\n  <head>\n  </head>\n  <body>\n  </body>\n</html>\n",
 		},
 	}
 

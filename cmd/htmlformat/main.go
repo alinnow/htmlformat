@@ -8,10 +8,15 @@ import (
 	"alin.ovh/htmlformat"
 )
 
-var parseDocumentFlag = flag.Bool("document", false, "Set to true to parse a whole document")
+var (
+	parseDocumentFlag = flag.Bool("document", false, "Set to true to parse a whole document")
+	indentString      = flag.String("indent", "  ", "Set the indentation string")
+)
 
 func main() {
 	flag.Parse()
+
+	htmlformat.IndentString = *indentString
 
 	var err error
 	if *parseDocumentFlag {
