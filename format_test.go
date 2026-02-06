@@ -135,6 +135,12 @@ Some text <code>&lt;tag&gt;</code> more text</pre>
 <code>const html = &#34;&lt;div class=&#34;test&#34;&gt;Hello &amp; goodbye&lt;/div&gt;&#34;;</code></pre>
 `,
 		},
+		{
+			name:  "HTML entities in code blocks (no pre) are preserved",
+			input: `<code>const html = "&lt;div class=&quot;test&quot;&gt;Hello &amp; goodbye&lt;/div&gt;";</code>`,
+			expected: `<code>const html = &#34;&lt;div class=&#34;test&#34;&gt;Hello &amp; goodbye&lt;/div&gt;&#34;;</code>
+`,
+		},
 	}
 
 	for _, test := range tests {

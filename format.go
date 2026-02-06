@@ -195,7 +195,7 @@ func printNode(w io.Writer, n *html.Node, pre bool, level int) (err error) {
 			}
 		}
 		if !isVoidElement(n) {
-			if err = printChildren(w, n, pre || n.Data == "pre", level+1); err != nil {
+			if err = printChildren(w, n, pre || n.Data == "pre" || n.Data == "code", level+1); err != nil {
 				return
 			}
 			if !pre && (isSpecialContentElement(n) || !hasSingleTextChild(n)) {
