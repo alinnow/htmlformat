@@ -102,6 +102,39 @@ body {
 </div>
 `,
 		},
+		{
+			name:  "HTML entities in pre/code blocks are preserved",
+			input: `<pre><code>&lt;tab&gt;</code></pre>`,
+			expected: `<pre>
+<code>&lt;tab&gt;</code></pre>
+`,
+		},
+		{
+			name:  "multiple HTML entities in pre blocks are preserved",
+			input: `<pre>&lt;html&gt; &amp; &quot;quotes&quot;</pre>`,
+			expected: `<pre>&lt;html&gt; &amp; &#34;quotes&#34;</pre>
+`,
+		},
+		{
+			name:  "HTML entities in nested code within pre are preserved",
+			input: `<pre>Some text <code>&lt;tag&gt;</code> more text</pre>`,
+			expected: `<pre>
+Some text <code>&lt;tag&gt;</code> more text</pre>
+`,
+		},
+		{
+			name:  "ampersands in pre blocks are preserved",
+			input: `<pre>npm install &amp;&amp; npm test</pre>`,
+			expected: `<pre>npm install &amp;&amp; npm test</pre>
+`,
+		},
+		{
+			name:  "complex HTML entities in code blocks are preserved",
+			input: `<pre><code>const html = "&lt;div class=&quot;test&quot;&gt;Hello &amp; goodbye&lt;/div&gt;";</code></pre>`,
+			expected: `<pre>
+<code>const html = &#34;&lt;div class=&#34;test&#34;&gt;Hello &amp; goodbye&lt;/div&gt;&#34;;</code></pre>
+`,
+		},
 	}
 
 	for _, test := range tests {

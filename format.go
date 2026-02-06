@@ -123,7 +123,7 @@ func printNode(w io.Writer, n *html.Node, pre bool, level int) (err error) {
 	switch n.Type {
 	case html.TextNode:
 		if pre {
-			if _, err = fmt.Fprint(w, n.Data); err != nil {
+			if _, err = fmt.Fprint(w, html.EscapeString(n.Data)); err != nil {
 				return
 			}
 			return nil
@@ -171,8 +171,8 @@ func printNode(w io.Writer, n *html.Node, pre bool, level int) (err error) {
 			}
 		}
 	case html.ElementNode:
-		if n.PrevSibling == nil ||
-			(n.PrevSibling.Type != html.TextNode || unicode.IsSpace(getLastRune(n.PrevSibling.Data))) {
+		if !pre && (n.PrevSibling == nil ||
+			(n.PrevSibling.Type != html.TextNode || unicode.IsSpace(getLastRune(n.PrevSibling.Data)))) {
 			if err = printIndent(w, level); err != nil {
 				return
 			}
@@ -189,16 +189,16 @@ func printNode(w io.Writer, n *html.Node, pre bool, level int) (err error) {
 		if _, err = fmt.Fprint(w, ">"); err != nil {
 			return
 		}
-		if !hasSingleTextChild(n) {
+		if !pre && !hasSingleTextChild(n) {
 			if _, err = fmt.Fprint(w, "\n"); err != nil {
 				return
 			}
 		}
 		if !isVoidElement(n) {
-			if err = printChildren(w, n, n.Data == "pre", level+1); err != nil {
+			if err = printChildren(w, n, pre || n.Data == "pre", level+1); err != nil {
 				return
 			}
-			if isSpecialContentElement(n) || !hasSingleTextChild(n) {
+			if !pre && (isSpecialContentElement(n) || !hasSingleTextChild(n)) {
 				if err = printIndent(w, level); err != nil {
 					return
 				}
@@ -207,9 +207,9 @@ func printNode(w io.Writer, n *html.Node, pre bool, level int) (err error) {
 				return
 			}
 
-			if n.NextSibling == nil ||
+			if !pre && (n.NextSibling == nil ||
 				(n.NextSibling.Type == html.ElementNode) ||
-				(n.NextSibling.Type == html.TextNode && !unicode.IsPunct(getFirstRune(n.NextSibling.Data))) {
+				(n.NextSibling.Type == html.TextNode && !unicode.IsPunct(getFirstRune(n.NextSibling.Data)))) {
 				if _, err = fmt.Fprint(w, "\n"); err != nil {
 					return
 				}
